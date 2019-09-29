@@ -24,7 +24,7 @@ function inputBox(x,y,length, fcolor, bcolor)
    local y2 = y+height
       
    return {
-      onFocus = false,
+      onFocus = false,  --if the input box get the focus
       t = 0,
       handleInput = function()
       end
