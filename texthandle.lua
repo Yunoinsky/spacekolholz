@@ -18,8 +18,7 @@ function get_kbd_char()
       local c=peek(0xff88+i)
       if c>0 and c<=#A and keyp(c,20,3) then
 	 return key(64)and S:sub(c,c)or A:sub(c,c)
- 
-     end
+      end
    end
    return nil
 end
@@ -30,6 +29,8 @@ end
 -- length: the maxlength of the input string
 --
 
+
+function 
 
 function inputBox(x_lt,y_lt,length, f_color, b_color)
    local ipb = {
@@ -44,6 +45,5 @@ function inputBox(x_lt,y_lt,length, f_color, b_color)
    function ipb:handleInput()
        
    end
-
 end
 
