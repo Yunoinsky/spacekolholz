@@ -15,8 +15,9 @@ end
 
 
 -- the single-line inputbox, it will create and return a new inputBox object
--- x, y the topleft point coordinate of the inp 
+-- x, y the topleft point coordinate of the inp
+-- 
 function inputBox(x,y,length, fcolor, bcolor)
-
+   
 end
 
