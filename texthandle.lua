@@ -32,13 +32,9 @@ end
 --
 
 
-<<<<<<< HEAD
-function inputBox(x_lt,y_lt,length, f_color, b_color, hintword)
-=======
-function 
 
-function inputBox(x_lt,y_lt,length, f_color, b_color)
->>>>>>> 56fe7458c38b39019f8e0e723f1f3c20e59d1bea
+function inputBox(x_lt,y_lt,length, f_color, b_color, hintword)
+
    local ipb = {
       x = x_lt,
       y = y_lt,
