@@ -18,7 +18,9 @@ function get_kbd_char()
       local c=peek(0xff88+i)
       if c>0 and c<=#A and keyp(c,20,3) then
 	 return key(64)and S:sub(c,c)or A:sub(c,c)
-     end
+
+      end
+
    end
    return nil
 end
@@ -30,7 +32,13 @@ end
 --
 
 
+<<<<<<< HEAD
 function inputBox(x_lt,y_lt,length, f_color, b_color, hintword)
+=======
+function 
+
+function inputBox(x_lt,y_lt,length, f_color, b_color)
+>>>>>>> 56fe7458c38b39019f8e0e723f1f3c20e59d1bea
    local ipb = {
       x = x_lt,
       y = y_lt,
