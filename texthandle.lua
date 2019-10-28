@@ -23,46 +23,21 @@ function get_kbd_char()
    return nil
 end
 
+function frame(name,window)
+   subframe
+end
 
 
--- the single-line inputbox, it will create and return a new inputBox object
--- x, y: the topleft point coordinate of the inputBox
--- length: the maxlength of the input string
---
-
-
-
-
-function window(name, 
-
-
-      
-function inputBox(x_lt,y_lt,length, f_color, b_color, hintword)
-   x = x_lt,
-   y = y_lt,
-   len = length,
-   fcolor = f_color,
-   bcolor = b_color,
-   onfocus = false,
-   buf = "",
-   hint = hintword or ""
-
-   return {handleInput=function()
-      if self.onfocus then
-	 c = get_kbd_char()
-	 if c then
-	    self.buf = self.buf .. c
-	 end
-      end
-   end,
-   function()
-
-   end,
-   function update()
-      
-   end
+-- window is the basic container for our ui system, which refer to a scene with multiple frames
+function window(name, director)
+   active_status = false
+   frames = {}
    
 end
+
+
+
+
 
 -- The simple timer
 -- timer(time, isLoop) to create and return a timer function
@@ -74,6 +49,7 @@ timer_CMD = {
    stop = 1,
    reset = 2
 }
+
 function timer(time, isLoop)
    t = time
    run_status = false
@@ -87,15 +63,18 @@ function timer(time, isLoop)
 	    run_status = false
 	 end
       end
-      if run_status then
-	 t = t-1
-      end
-      if command == timer_CMD.run then
+      if command == nil then
+	 if run_status then
+	    t = t-1
+	 end
+      elseif command == timer_CMD.run then
 	 run_status = true
       elseif command == timer_CMD.stop then
 	 run_status = false
       elseif command == timer_CMD.reset then
 	 t = time
+      else
+	 error("ERROR: Wrong command for timer", 2)
       end
       return t
    end
