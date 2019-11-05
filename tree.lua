@@ -39,22 +39,33 @@ P.scene_tree_meta = {
       end,
 
       t_map = function(self, func, ...)
-	 self.t_map_node(self, func, ...)
+	 self.t_map_node(self[0], func, ...)
       end,
 
       t_map_r = function(self, func, ...)
-	 self.t_map_node_r(self, func, ...)
+	 self.t_map_node_r(self[0], func, ...)
       end,
 
-      t_map_node = function(list_node_ptr, func, ...)
-	 func(list_node_ptr[0][0], ...)
-	 t_node_ptr[1]:map(P.scene_tree_meta.t_map_node, func, ...)
+      t_map_node = function(map_node_ptr, func, ...)
+	 func(map_node_ptr, ...)
+	 local tempfun = function(linklist_node, ...)
+	    P.scene_tree_meta.__index.t_map_node(linklist_node[0], func, ...)
+	    return nil
+	 end
+	 map_node_ptr[1]:map(tempfun, ...)
+	 return nil
       end,
 
-      t_map_node_r = function(list_node_ptr, func, ...)
-	 func(list_node_ptr[0][0], ...)
-	 t_node_ptr[1]:map_r(P.scene_tree_meta.t_map_node, func, ...)
+      t_map_node_r = function(map_node_ptr, func, ...)
+	 func(map_node_ptr, ...)
+	 local tempfun = function(linklist_node, ...)
+	    P.scene_tree_meta.__index.t_map_node(linklist_node[0], func, ...)
+	    return nil
+	 end
+	 map_node_ptr[1]:map_r(tempfun, ...)
+	 return nil
       end,
+
 
       t_insert = function(self, component, fathernode, name)
 	 local comptype = nil
@@ -80,14 +91,16 @@ P.scene_tree_meta = {
 	    }
 	 end
 	 setmetatable(component, P.scene_tree_node_meta)
+
 	 if fathernode then
 	    fathernode[1]:insert(component,name)
 	    
-	 elseif type(self.root)=="table" then
+	 elseif type(self[0])=="table" then
 	    error("ERROR: Miss the father node")
 	 else
-	    self.root = component
+	    self[0] = component
 	 end
+
 	 return component
       end,
       t_pop = function(self, fathernode, node)
@@ -97,8 +110,8 @@ P.scene_tree_meta = {
 	 elseif node then
 	    error("ERROR: Miss the father node")
 	 else
-	    result = self.root
-	    self.root = nil
+	    result = self[0]
+	    self[0] = nil
 	 end
 	 return result
       end,
@@ -117,6 +130,20 @@ P.scene_tree = function()
    return newtree
 end
 
+P.test = function()
+   _DEBUG = true
+   local a = P.scene_tree()
+   local b = a:t_insert(5)
+   
+   local c = a:t_insert(15, b, "hehe")
+   a:t_insert(55, c,"heihei")
+   a:t_insert(33, b, "lala")
+   a:t_map(function(s) print(s[0]) end)
+   _DEBUG = false
+end
 
+if _TEST then
+   P.test()
+end
 
 return P

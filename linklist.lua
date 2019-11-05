@@ -202,11 +202,14 @@ P.linklist_meta = {
 	 return self[0] == nil
       end,
 
+      -- map function receive the linklist node
       map = function(self, func, ...)
 	 local iter = self[0]
 	 local results = {}
 	 while iter do
-	    table.insert(results, func(iter[0], ...))
+	    
+	    table.insert(results, func(iter, ...))
+
 	    iter = iter[2]
 	 end
 	 return results
@@ -216,7 +219,7 @@ P.linklist_meta = {
 	 local iter = self[1]
 	 local results = {}
 	 while iter do
-	    table.insert(results, func(iter[0], ...))
+	    table.insert(results, func(iter, ...))
 	    iter =  iter[1]
 	 end
 	 return results
@@ -224,7 +227,7 @@ P.linklist_meta = {
 
       print_all_values = function(self)
 	 local templambda = function(s)
-	    local v=s.value
+	    local v=s[0].value
 	    if not v then
 	       print("Warning: value is nil")
 	    end
@@ -316,6 +319,7 @@ end
 
 
 P.test = function()
+   _DEBUG = true
    local a = P.linklist()
    a:insert(5)
    a:insert(6)
@@ -325,6 +329,7 @@ P.test = function()
    a:insert(19)
    a:move_to("1")
    a:print_all_values()
+   _DEBUG = false
 end
 
 if _TEST then
