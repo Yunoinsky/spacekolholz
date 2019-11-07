@@ -1,3 +1,51 @@
+--[[
+Linklist is a linkedlist with index.
+{
+[0] head llnode
+[1] tail llnode
+[2] list {}
+[3] count timer.counter()
+[4] type_str "linklist"
+
+get_node(self, node)
+get_node_name(self, node)
+
+insert(self, component, name, prenode_name)
+insert_r(self, component, name)
+insert_s(self, component, prenode_name)
+insert_rs(self, component)
+
+pop(self, node)
+pop_r(self)
+
+is_empty(self)
+
+map(self, func, ...)
+map_r(self, func, ...)
+
+print_all_values(self)
+
+move_to(self, src_node, tar_pre_node)
+
+clear(self)
+
+head(self)
+set_head(self, head)
+
+tail(self)
+set_tail(self, tail)
+
+list(self)
+
+count(self)
+
+type(self)
+
+}
+
+]]--
+
+
 require("timer")
 
 local P = {}
